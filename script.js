@@ -1,3 +1,4 @@
+// Function to move an element randomly
 function moveRandomEl(elm) {
     elm.style.position = "absolute";
     elm.style.top = Math.floor(Math.random() * 90 + 5) + "%";
@@ -18,51 +19,33 @@ if (moveRandom) {
     });
 }
 
-// Prompt for Name, Snapchat ID, and optionally Mobile Number
-window.addEventListener("DOMContentLoaded", function () {
-    let userName = localStorage.getItem("userName");
-    let snapchatID = localStorage.getItem("snapchatID");
-    let mobileNumber = localStorage.getItem("mobileNumber"); // Optional
-
-    if (!userName || !snapchatID) {
-        userName = userName || prompt("Enter your name:");
-        snapchatID = snapchatID || prompt("Enter your Snapchat ID:");
-        mobileNumber = mobileNumber || prompt("Enter your mobile number (optional):");
-
-        if (userName && snapchatID) {
-            localStorage.setItem("userName", userName);
-            localStorage.setItem("snapchatID", snapchatID);
-            if (mobileNumber) {
-                localStorage.setItem("mobileNumber", mobileNumber);
-            }
-        }
-    }
-});
-
-// Play background music when clicking "No"
-document.getElementById("noBtn")?.addEventListener("click", function () {
+// Function to play background music
+function playMusic() {
     let audio = document.getElementById("bgMusic");
     if (audio) {
         audio.play().catch(error => console.log("Autoplay blocked:", error));
     }
-});
-
-// Send response when clicking "Yes"
-document.getElementById("yesButton")?.addEventListener("click", function () {
-    let userName = localStorage.getItem("userName") || "Unknown User";
-    let snapchatID = localStorage.getItem("snapchatID") || "No Snapchat ID provided";
-    let mobileNumber = localStorage.getItem("mobileNumber") || "No Mobile Number provided"; // Optional
-
-    sendResponse(userName, snapchatID, mobileNumber, "Yes");
-});
-
-// Function to send response via email or API
-function sendResponse(name, snapchat, mobile, response) {
-    let message = `Name: ${name}\nSnapchat ID: ${snapchat}\nMobile Number: ${mobile}\nResponse: ${response}`;
-
-    // Option 1: Open email client
-    window.location.href = `mailto:fakebadge440@gmail.com?subject=Proposal Response&body=${encodeURIComponent(message)}`;
-
-
-
 }
+
+// Play background music when clicking "No"
+document.getElementById("noBtn")?.addEventListener("click", playMusic);
+
+// Redirect to yes.html when "Yes" is clicked
+document.getElementById("yesButton")?.addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent default link behavior
+    window.location.href = "yes.html";
+});
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+
+    document.querySelector(".hearts-container").appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+
+setInterval(createHeart, 300);
